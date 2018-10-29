@@ -1,7 +1,7 @@
 //global variables
 var quizQuestions = [];
 var score = 0;
-var answers;
+var answers= [];
 var question;
 var correct;
 var question_1 = "";
@@ -39,13 +39,16 @@ var question_1 = "";
  quizQuestions = [
     question_1 = {
         question:"Each year, the Chicago river is dyed what color to celebrate St. Patricks day?",
-        answers: "a. orange b. green c it dosen't need to be dyed it is beautiul the way it is d. purple",
-        correct: "b"
+        answers: ["a. orange", "b. green", "c. it dosen't need to be dyed it is beautiul the way it is", "d. purple"],
+        correct: 2
 
 
     }
 ]
 $("#quizHolder").append(question_1.question);
+for(var i = 0; i < question_1.answers.length; i++){
+
+$("#answerHolder").append("<label>"+ "<input type= radio>"+question_1.answers[i]+"</label>")}
  //an array of question objects
 // for (var i =0; i< quizQuestions.length; i++);
 // {
