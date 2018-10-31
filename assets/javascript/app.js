@@ -9,7 +9,9 @@ var questionContainer
 var currentQuestion = 0; 
 var timer =0
 var clock = 31
+var arrayIndex = 0
 
+var init
 var quizQuestions = [
     //#0 in the quizQuestions array
        {
@@ -66,24 +68,25 @@ function quizInit(){
 }//end quizInit function
 
 function getQuestion(){
-    countDown();
+    // countDown();
 //sets interval 
 //"this" references the objects containing the trivia questions. Current question assigns it a value of 0. 
 // so, taking quiz questions making it number 0, and diving into the object to get the question and putting it in 
 // the quizHolder div.  
-$("#quizHolder").append(quizQuestions[this.currentQuestion].question)
+$("#quizHolder").html("<h2>"+ quizQuestions[this.currentQuestion].question + "</h2>")
 for (var i = 0; i < quizQuestions[this.currentQuestion].answers.length; i++) {
-    $("#answerHolder").append($('<input type="radio" name="quizButton" value="' + quizQuestions[this.currentQuestion].answers[i] + '" checked>' + quizQuestions[this.currentQuestion].answers[i]  + '</input><br />'));
+    $("#answerHolder").append($("<button input type = radio" + quizQuestions[currentQuestion].answers[i] + " value >" + quizQuestions[currentQuestion].answers[i]  + '</button>'));
+
 }//end for loop inside of getQuestion
 //gets it from array 
 
 }//end getQuestion function
 
 function nextQuestion(){
-questionnext = $("#nextQuestion").on("click", function(){
-    getQuestion();   
-console.log("I am current " + questionnext);
-
+ $("#nextQuestion").on("click", function(){
+    $("#answerHolder").empty()
+    getQuestion(); 
+    currentQuestion++;
 });
 }
 
@@ -116,6 +119,7 @@ getQuestion();
 
 quizInit();
 
+nextQuestion();
 //puts first quiz question on to page, iterates through array of answers and displays them with select buttons
 // $("#quizHolder").append(question_1.question);
 // for(var i = 0; i < question_1.answers.length; i++){
