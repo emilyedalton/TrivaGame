@@ -7,6 +7,7 @@ var incorrectAns = 0;
 var useranswer
 var questionContainer
 var currentQuestion = 0; 
+var setIntervalID;
 var timer =0
 var clock = 31
 var arrayIndex = 0
@@ -43,11 +44,11 @@ var quizQuestions = [
 //functions
 //makes the clock count down 
 function countDown(){
-    var clock = 31;
-   var timer = setInterval(function() {
+    var clock = 5;
+    var timer = setInterval(function() {
         clock--;
        $('#timeLeft').html(clock);
-        if (clock === 31) {
+        if (clock === 5) {
           $('#timeLeft').html(clock - 1);
         } else if(clock <= 0) {
            clearInterval(timer);
@@ -60,42 +61,59 @@ console.log("hello")
 
 function quizInit(){
    //clicking start button makes the countdown start    
-    $("#startButton").on("click", countDown);
-
-     $("#quizStart").html("<h2>Click start to test your knowledge!</h2>")
-//call getQuestion function
+   $("#startButton").on("click", function(){
+   clearInterval(setIntervalID)
+   setIntervalID = setInterval(getQuestion, 10000);
+//    $("#quizStart").html("<h2>Click start to test your knowledge!</h2>")
+   
+   });
     
 }//end quizInit function
 
 function getQuestion(){
-    // countDown();
-//sets interval 
+//countDown();
 //"this" references the objects containing the trivia questions. Current question assigns it a value of 0. 
 // so, taking quiz questions making it number 0, and diving into the object to get the question and putting it in 
 // the quizHolder div.  
 $("#quizHolder").html("<h2>"+ quizQuestions[this.currentQuestion].question + "</h2>")
 for (var i = 0; i < quizQuestions[this.currentQuestion].answers.length; i++) {
-    $("#answerHolder").append($("<button input type = radio" + quizQuestions[currentQuestion].answers[i] + " value >" + quizQuestions[currentQuestion].answers[i]  + '</button>'));
+    $("#quizHolder").append($("<p><button class = 'answerButton'>" + quizQuestions[currentQuestion].answers[i]  + '</button></p>'));
 
 }//end for loop inside of getQuestion
-//gets it from array 
-
-}//end getQuestion function
+currentQuestion++;
+}//end getQuestion function  
 
 function nextQuestion(){
- $("#nextQuestion").on("click", function(){
-    $("#answerHolder").empty()
-    getQuestion(); 
-    currentQuestion++;
+ $(".answerButton").on("click", function(){
+   // setTimeout(getQuestion, 1000); 
+   $("#quizHolder").empty();
+   var clickanswer=  $(this).text().toString().trim()
+   var storeanswer= quizQuestions[currentQuestion].correct.toString().trim();
+
+   alert( clickanswer +" - "+  storeanswer +" "+ clickanswer.localeCompare(storeanswer));
+  if (  clickanswer ===storeanswer )
+    {
+       $("#test").append("You have answered correctly");
+
+
+
+  }
+
+   currentQuestion++;
+
 });
+
+
 }
 
 
 
+
+
  function checkAnswers(){
-     $("input").on("click", function(){
-     $("#test").html($("input:radio").val());
-      useranswer = $('input:checked').val();
+     $(".answerButton").on("click", function(){
+         console.log("dosomething")
+    useranswer = $(".answerButton").text();
 
 console.log("this is the user answer inside of the  function " + useranswer)
    
@@ -115,9 +133,9 @@ console.log("this is the user answer " + useranswer);
 
  $(document).ready(function(){
 
-getQuestion();
+checkAnswers();
 
-quizInit();
+ quizInit();
 
 nextQuestion();
 //puts first quiz question on to page, iterates through array of answers and displays them with select buttons
@@ -126,12 +144,12 @@ nextQuestion();
 
 // $("#answerHolder").append($('<input type="radio" name="quizButton" value="' + question_1.answers[i] + '" checked>' + question_1.answers[i] + '</input><br />'));
 // }
-// checkAnswers();
-// if (useranswer===this.correct){
-//     correctAns++;
-// }else{
-//     incorrectAns++;
-// }
+//  checkAnswers();
+//  if (useranswer===this.correct){
+//   correctAns++;
+//  }else{
+//    incorrectAns++;
+//  }
  //need an if stataement to validate user answer input with user answer and increment correct if corrrect 
     //and increment incorrect 
 console.log("this is the user answer" + useranswer);
