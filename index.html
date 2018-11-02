@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-</head>
-<body>
-    <div id ="quizStart"></div>
-    <button id ="startButton">Start</button>
-    <div id ="timeLeft"></div>
-    <div id = "quizHolder"></div>  <!--end quiz holder--- -->
-    <div id = "answerHolder"><button id="answerButton"></div></div>  <!--end answer holder--- --> 
-<div id = "test"></div>
-<button id = "nextQuestion"> Next Question </button>
+    <link rel="stylesheet" type="text/css" href="/TrivaGame/assets/css/style.css">
 
+</head>
+
+<body>
+    <div class="container">
+       
+            <div id="quizHolder">
+                <div id="quizStart"></div>
+                <button id="startButton">Start</button>
+            </div><!--end quizHolder--- -->
+       
+   
+         <div class="AnsResponse">
+<div class= "responseText"></div>
+         </div><!--end incorect--- -->
     
+
+    </div><!--container--- -->
     
+
+    <div id="timeLeft"></div>
+
+    <button id="nextQuestion"> Next Question </button>
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-   <script type = "text/javascript" src = "/TrivaGame/assets/javascript/app.js"></script>
+    <script type="text/javascript" src="/TrivaGame/assets/javascript/app.js"></script>
 </body>
+
 </html>

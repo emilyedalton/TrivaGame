@@ -1,9 +1,11 @@
+
 //global variables
 
 var score = 0;
 var answers = [];
 var correctAns = 0;
 var incorrectAns = 0;
+var noAnswer = 0;
 var useranswer
 var questionContainer
 var currentQuestion = 0;
@@ -19,7 +21,8 @@ var quizQuestions = [
     {
         question: "Each year, the Chicago river is dyed what color to celebrate St. Patricks day?",
         answers: ["a. orange", "b. green", "c. it dosen't need to be dyed it is beautiul the way it is", "d. purple"],
-        correct: "b. green"
+        correct: "b. green",
+
     },
 
     //#1 in the quizQuestions array
@@ -33,9 +36,9 @@ var quizQuestions = [
 
     //#3 in the quizQuestions array
     {
-        question: "Besides deep dish pizza, what cuisine is Chicago famous for?",
+        question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
         answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
-        correct: "d. goat",
+        correct: "d. All of the above",
     }
 ]
 
@@ -59,12 +62,12 @@ function countDown() {
 }//end countDown function
 
 function quizInit() {
-    //clicking start button makes the countdown start    
+    //clicking start button makes the countdown start 
+    $("#quizStart").html("<h2>Click start to test your knowledge!</h2>")   
     $("#startButton").on("click", function () {
         getQuestion();
         clearInterval(setIntervalID)
         setIntervalID = setInterval(getQuestion, 10000);
-         $("#quizStart").html("<h2>Click start to test your knowledge!</h2>")
 
     });
 
@@ -77,7 +80,7 @@ function getQuestion() {
     $("#quizHolder").html("<h2>" + quizQuestions[this.currentQuestion].question + "</h2>")
     for (var i = 0; i < quizQuestions[this.currentQuestion].answers.length; i++) {
         $("#quizHolder").append($("<p><button class='answerbutton'>" + quizQuestions[currentQuestion].answers[i] + '</button></p>'));
-
+console.log([quizQuestions]);
     }//end for loop inside of getQuestion
     nextQuestion();
 
@@ -87,79 +90,62 @@ function nextQuestion() {
     $(".answerbutton").on("click", function () {
         userClicks=true;
         $("#quizHolder").empty();
-        var clickanswer = $(this).text().toString().trim()
+        var clickanswer = $(this).text().toString().trim();
         var storeanswer = quizQuestions[currentQuestion].correct.toString().trim();
         console.log("I am the answer the user clicked " + clickanswer);
         // alert( clickanswer +" - "+  storeanswer +" "+ clickanswer.localeCompare(storeanswer));
         if (clickanswer === storeanswer) {
-            $("#test").append("You have answered correctly");
+            $(".responseText").append("You have answered correctly");
             correctAns++;
             console.log("score is " + correctAns);
             
             clearTimeout(setTimeoutID);
             setTimeoutID= setTimeout(getQuestion, 3000); 
         }
-        else{
-            $("#test").append("You have answered incorrectly");
+        else if(clickanswer !== storeanswer){
+            $(".responseText").append("You have answered incorrectly");
+            $(".AnsResponse").append("<embed src=https://media.giphy.com/media/PUeg2vZtk3T7G/giphy.gif width = '300px' height = '200px'/>");
+            setTimeout(function() {
+                $(".responseText").empty()
+                $(".AnsResponse").empty()
+                }, 5000);
+
 
         }
 
+       else{ 
+    noAnswer++;
+    console.log("this many unanswered " + noAnswer);
+    tryAgain();
 
+
+        }
     });
 
     currentQuestion++;
-}
-
-
-
-
-
-function checkAnswers() {
-    $(".answerButton").on("click", function () {
-        console.log("dosomething")
-        useranswer = $(".answerButton").text();
-
-        console.log("this is the user answer inside of the  function " + useranswer)
-
-    });
 
 }
 
-console.log("this is the user answer " + useranswer);
+  
+function tryAgain(){
+    $("#test").append($("<p><button class ='tryagain'>" +"try again" + "</buttton> </p>" ));
+    $(".tryagain").on("click", function () {
+        getQuestion();
+        clearInterval(setIntervalID)
+        setIntervalID = setInterval(getQuestion, 10000);
+});
+}
+//end tryAgain
 
 
-// function quizReset(){}
 
-//function showAnswers (){}
-// showAnswers will clear out the quiz from the screen and show the user 
 
-//end functions
 
 $(document).ready(function () {
 
-    //checkAnswers();
+
 
     quizInit();
-
-    //nextQuestion();
-    //puts first quiz question on to page, iterates through array of answers and displays them with select buttons
-    // $("#quizHolder").append(question_1.question);
-    // for(var i = 0; i < question_1.answers.length; i++){
-
-    // $("#answerHolder").append($('<input type="radio" name="quizButton" value="' + question_1.answers[i] + '" checked>' + question_1.answers[i] + '</input><br />'));
-    // }
-    //  checkAnswers();
-    //  if (useranswer===this.correct){
-    //   correctAns++;
-    //  }else{
-    //    incorrectAns++;
-    //  }
-    //need an if stataement to validate user answer input with user answer and increment correct if corrrect 
-    //and increment incorrect 
-    console.log("this is the user answer" + useranswer);
-    // console.log("the correct answer is " + question_1.correct);
-    console.log("you have this many right " + correctAns)
-    console.log("you have this many wrong" + incorrectAns)
 
 
 

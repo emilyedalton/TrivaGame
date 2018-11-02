@@ -1,0 +1,18 @@
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: row;
+    border: solid 2px blueviolet;
+
+}
+
+#quizHolder{
+ border: solid 2px blue;
+}
+
+#test{
+ display: flex;
+ border: solid 2px gold;
+}
