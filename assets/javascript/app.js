@@ -173,8 +173,8 @@ $(document).ready(function () {
         else if (currentQuestion < quizQuestions.length) {
            // $(".AnsResponse").empty();
             $(".AnsResponse").empty();
-            $("#quizHolder").html("<h2>" + quizQuestions[currentQuestion].question + "</h2>")
-
+            // $("#quizHolder").html("<h2>" + quizQuestions[currentQuestion].question + "</h2>")
+            $("#quizHolder").html(`<h2> ${quizQuestions[currentQuestion].question} <h2>`);
             for (var i = 0; i < quizQuestions[currentQuestion].answers.length; i++) {
                 $("#quizHolder").append($("<p><button class='answerbutton'>" + quizQuestions[currentQuestion].answers[i] + '</button></p>'));
                 console.log([quizQuestions]);
@@ -218,7 +218,9 @@ $(document).ready(function () {
                 $("#test").append("You have answered correctly");
                 correctAns++;
                 console.log("score is " + correctAns);
-                $(".AnsResponse").append("<embed src='"+storeGif+ "' width = '300px' height = '200px'/>");
+                $(".AnsResponse").html(`<h2> ${quizQuestions[currentQuestion].question} <h2>`);
+
+                $(".AnsResponse").append (`<h2> RIGHT </h2> <embed src=${storeGif} width = '300px' height = '200px'/>`);
                 currentQuestion++;
                 clock = 11;
                 userClicks = true;
