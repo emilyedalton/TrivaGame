@@ -1,3 +1,9 @@
+h1, h2{font-family: 'Anton', sans-serif;
+    color:red
+}
+p{ 
+    font-family: 'Ultra', serif;
+}
 .container{
     display:flex;
     justify-content: center;

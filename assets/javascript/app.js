@@ -5,8 +5,6 @@ var answers = [];
 var correctAns = 0;
 var incorrectAns = 0;
 var noAnswer = 0;
-var useranswer;
-var questionContainer;
 var currentQuestion = 0;
 var setIntervalID;
 var setTimeoutID;
@@ -48,12 +46,7 @@ var quizQuestions = [
         correct: "d. All of the above",
         winGif: "https://media.giphy.com/media/Y3z0KLoRaZrJm/giphy.gif"
     }
-// {
-//         question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
-//         answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
-//         correct: "d. All of the above",
-//         winGif: "https://media.giphy.com/media/Y3z0KLoRaZrJm/giphy.gif"
-//     }
+
 ]
 //Emily, You need document ready to ensure that HTML elements loads first before running jquery
 $(document).ready(function () {
@@ -61,14 +54,11 @@ $(document).ready(function () {
     //Emily, this resets the game
     function resetGame() {
 
-
-
         $(".AnsResponse").empty();
         $("#quizHolder").empty();
         $("#test").empty();
-        $("#quizHolder").append("<p>Answered:" + correctAns + "</p>");
-        $("#quizHolder").append("<p>Incorrect answered:" + incorrectAns + "</p>");
-        $("#quizHolder").append("<p>No Answered:" + noAnswer + "</p>");
+        $("#quizHolder").html(`<p> Number Right: ${correctAns} </p> <p> Number Wrong: ${incorrectAns}</p> <p> No Answer: ${noAnswer}</p>`);
+
 
         currentQuestion = 0;
         correctAns = 0;
@@ -111,7 +101,7 @@ $(document).ready(function () {
 
     function quizInit() {
         //clicking start button makes the countdown start 
-        $("#quizStart").html("<h2>Click start to test your knowledge!</h2>")
+        $("#quizStart").html("<h1>Chicago Style Trivia</h1>")
         $("#startButton").on("click", function () {
 
 
@@ -171,7 +161,6 @@ $(document).ready(function () {
 
         }//Emily, if it doesn't reach the end of the quizQuestions Array it will continuously go to the next question
         else if (currentQuestion < quizQuestions.length) {
-           // $(".AnsResponse").empty();
             $(".AnsResponse").empty();
             // $("#quizHolder").html("<h2>" + quizQuestions[currentQuestion].question + "</h2>")
             $("#quizHolder").html(`<h2> ${quizQuestions[currentQuestion].question} <h2>`);
@@ -219,26 +208,24 @@ $(document).ready(function () {
                 correctAns++;
                 console.log("score is " + correctAns);
                 $(".AnsResponse").html(`<h2> ${quizQuestions[currentQuestion].question} <h2>`);
-
                 $(".AnsResponse").append (`<h2> RIGHT </h2> <embed src=${storeGif} width = '300px' height = '200px'/>`);
                 currentQuestion++;
                 clock = 11;
                 userClicks = true;
                 clearTimeout(setTimeoutID);
-                setTimeoutID = setTimeout(getQuestion, 3000);
+                setTimeoutID = setTimeout(getQuestion, 4000);
 
 
             } //Emily, this displays the wrong answer after the user clicks the answer button
             else if (clickanswer !== storeanswer) {
                 $(".AnsResponse").empty();
-                $("#test").append("You have answered incorrectly");
                 incorrectAns++;
                 currentQuestion++;
                 clock = 11;
                 userClicks = true;
                 $(".AnsResponse").append("<h2>" + "DENIED"+ "</h2>"+"<embed src='https://media.giphy.com/media/PUeg2vZtk3T7G/giphy.gif' width = '300px' height = '200px'/>");
                 clearTimeout(setTimeoutID);
-                setTimeoutID = setTimeout(getQuestion, 3000);
+                setTimeoutID = setTimeout(getQuestion, 4000);
                
                 // setTimeout(function() {
                 //     $(".responseText").hide()
@@ -254,7 +241,7 @@ $(document).ready(function () {
         
     }
 
-   //Emily. this starts the game
+   //Starts the game
     quizInit();
 
 
