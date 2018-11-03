@@ -1,6 +1,10 @@
-h1, h2{font-family: 'Anton', sans-serif;
-    color:red
+h1, h2
+{font-family: 'Anton', sans-serif;
+color:red;
+text-align: center;
 }
+
+h1{font-size: 4em;}
 p{ 
     font-family: 'Ultra', serif;
 }
