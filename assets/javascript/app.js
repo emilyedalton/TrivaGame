@@ -102,7 +102,7 @@ $(document).ready(function () {
         $("#startButton").on("click", function () {
 
 
-            //Emily, this reset when it starts using the setinterval
+            //Resets the setinterval
             init = true;
             clock = 11;
             setReset = false;
@@ -140,7 +140,7 @@ $(document).ready(function () {
             console.log("this many unanswered " + noAnswer + "user click" + userClicks);
             clock = 11;
         }
-        //When the last element of the quizQuestion, it would reset the game
+        //When the last element of the quizQuestion, it resets the game
         if (currentQuestion === quizQuestions.length) {
              console.log("resetgame");
             resetGame();
@@ -148,14 +148,13 @@ $(document).ready(function () {
         }//if it doesn't reach the end of the quizQuestions Array it will continuously go to the next question
         else if (currentQuestion < quizQuestions.length) {
             $(".AnsResponse").empty();
-            // $("#quizHolder").html("<h2>" + quizQuestions[currentQuestion].question + "</h2>")
             $("#quizHolder").html(`<h2> ${quizQuestions[currentQuestion].question} <h2>`);
             for (var i = 0; i < quizQuestions[currentQuestion].answers.length; i++) {
                 $("#quizHolder").append($("<p><button class='answerbutton'>" + quizQuestions[currentQuestion].answers[i] + '</button></p>'));
                 console.log([quizQuestions]);
             }//end for loop inside of getQuestion
  
-            //Emily, it stores the right answer here, so it can be used to compare with the answer button click
+            //Stores the right answer so it can be used to compared with the answer button click
             storeanswer = quizQuestions[currentQuestion].correct.toString().trim();
             storeGif=quizQuestions[currentQuestion].winGif;
 
@@ -176,7 +175,7 @@ $(document).ready(function () {
     function nextQuestion() {
 
 
-        //Emily, this reset the userClicks after the user clicks the answer
+        //This resets the userClicks after the user clicks the answer
         userClicks = false;
 
         $(".answerbutton").on("click", function () {
@@ -187,7 +186,7 @@ $(document).ready(function () {
 
            
             //If the user clicks the right answer it increments the answer count
-            //and display the message you have answered correctly.
+            //and displays the message you have answered correctly.
            if (clickanswer === storeanswer) {
                 $("#test").empty();
                 $("#test").append("You have answered correctly");
