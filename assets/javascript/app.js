@@ -15,7 +15,6 @@ var timer = 0
 var clock = 31
 var arrayIndex = 0
 var userClicks=false;
-var firstClick=false;
 var init
 var quizQuestions = [
     //#0 in the quizQuestions array
@@ -30,16 +29,22 @@ var quizQuestions = [
     {
         question: "What animal cursed the Chicago cubs baseball team until they won the World Series 2016?",
         answers: ["a. fox", "b. pony", "c. squid", "d. goat"],
-        correct: "d. goat",
+        correct: "b. green",
 
 
     },
 
-    //#2 in the quizQuestions array
+    //#3 in the quizQuestions array
     {
         question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
         answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
-        correct: "d. All of the above",
+        correct: "d. goat",
+    },
+{
+    question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
+    answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
+    correct: "d. All of the above",
+
     }
 ]
 
@@ -68,7 +73,7 @@ function quizInit() {
     $("#startButton").on("click", function () {
         getQuestion();
         clearInterval(setIntervalID)
-        setIntervalID = setInterval(getQuestion, 11000);
+        setIntervalID = setInterval(getQuestion, 10000);
 
     });
 
@@ -81,17 +86,15 @@ function getQuestion() {
     $("#quizHolder").html("<h2>" + quizQuestions[this.currentQuestion].question + "</h2>")
     for (var i = 0; i < quizQuestions[this.currentQuestion].answers.length; i++) {
         $("#quizHolder").append($("<p><button class='answerbutton'>" + quizQuestions[currentQuestion].answers[i] + '</button></p>'));
-console.log(currentQuestion);
+console.log([quizQuestions]);
     }//end for loop inside of getQuestion
     nextQuestion();
 
 }//end getQuestion function  
 
 function nextQuestion() {
-    if(userClicks===true){
-    $(".answerbutton").one("click", function () {
-        userClicks=false;
-        firstClick=true;
+    $(".answerbutton").on("click", function () {
+        userClicks=true;
         $("#quizHolder").empty();
         var clickanswer = $(this).text().toString().trim();
         var storeanswer = quizQuestions[currentQuestion].correct.toString().trim();
@@ -128,7 +131,7 @@ function nextQuestion() {
     currentQuestion++;
 
 }
-}
+
   
 function tryAgain(){
     $("#test").append($("<p><button class ='tryagain'>" +"try again" + "</buttton> </p>" ));
