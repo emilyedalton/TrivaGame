@@ -1,3 +1,4 @@
+body{background-color: lightblue;}
 h1, h2
 {font-family: 'Anton', sans-serif;
 color:red;
@@ -8,21 +9,35 @@ h1{font-size: 4em;}
 p{ 
     font-family: 'Ultra', serif;
 }
+
+
 .container{
     display:flex;
     justify-content: center;
     align-items: center;
-
     flex-direction: row;
-    border: solid 2px blueviolet;
 
 }
 
-#quizHolder{
+
+
+
+.AnsResponse{
+    background-color:white;
+    text-align: center; 
+    padding: 1em;
+
+}
+
+ #quizHolder{
+background-color:white;
+text-align: center; 
+padding: 1em;
+
+}
+
+
+/* #quizHolder{
  border: solid 2px blue;
-}
+} */
 
-#test{
- display: flex;
- border: solid 2px gold;
-}

@@ -48,10 +48,9 @@ var quizQuestions = [
     }
 
 ]
-//Emily, You need document ready to ensure that HTML elements loads first before running jquery
 $(document).ready(function () {
 
-    //Emily, this resets the game
+    //Game Reset
     function resetGame() {
 
         $(".AnsResponse").empty();
@@ -76,7 +75,7 @@ $(document).ready(function () {
     }
 
     //functions
-    //Emily, you need to have the clock count down to start at 10seconds
+    //Countdown: If the user clicks, start the countdown
     function countDown() {
         if(userClicks===true)
         {
@@ -84,15 +83,13 @@ $(document).ready(function () {
         }
         clock--;
         $("#timeLeft").html("<p>Remaining Time:" + clock + "</p>");
-        // alert("init"+init);
 
 
-        //Emily, init is set true so when you click start it would display the question right away
+        //Either time runs out or the inital start of the game = "true" BUT after you get the question it becomes false 
         if (clock === 0 || init === true) {
 
             getQuestion();
 
-            //Emily, this would use the setinterval to continously loop using the every 10 sec
             init = false;
         }
 
@@ -122,20 +119,9 @@ $(document).ready(function () {
     }//end quizInit function
 
     function getQuestion() {
-        //"this" references the objects containing the trivia questions. Current question assigns it a value of 0. 
-        // so, taking quiz questions making it number 0, and diving into the object to get the question and putting it in 
-        // the quizHolder div.  
+        
 
-      
-
-
-
-
-
-         
-
-
-        //Emily, when the clock reaches 0, it goes to the next question 
+        //If the clock reaches 0, go to the next question 
  
         if (clock === 0) {
 
@@ -147,19 +133,19 @@ $(document).ready(function () {
             console.log("next question currentQuestion:" + currentQuestion + " quizQuestions.length: " + quizQuestions.length);
             
         }
-        //Emily, if the user doesn't click, it increments no answer        
+        //If the user doesn't click and        
         if (userClicks === false && init === false) {
 
             noAnswer++;
             console.log("this many unanswered " + noAnswer + "user click" + userClicks);
             clock = 11;
         }
-        //Emily, if currentQuestion reaches the last element of the quizQuestion, it would reset the game
+        //When the last element of the quizQuestion, it would reset the game
         if (currentQuestion === quizQuestions.length) {
              console.log("resetgame");
             resetGame();
 
-        }//Emily, if it doesn't reach the end of the quizQuestions Array it will continuously go to the next question
+        }//if it doesn't reach the end of the quizQuestions Array it will continuously go to the next question
         else if (currentQuestion < quizQuestions.length) {
             $(".AnsResponse").empty();
             // $("#quizHolder").html("<h2>" + quizQuestions[currentQuestion].question + "</h2>")
@@ -200,7 +186,7 @@ $(document).ready(function () {
             clickanswer = $(this).text().toString().trim();
 
            
-            //Emily, if the user clicks the right answer it increments the answer count
+            //If the user clicks the right answer it increments the answer count
             //and display the message you have answered correctly.
            if (clickanswer === storeanswer) {
                 $("#test").empty();
@@ -216,7 +202,7 @@ $(document).ready(function () {
                 setTimeoutID = setTimeout(getQuestion, 4000);
 
 
-            } //Emily, this displays the wrong answer after the user clicks the answer button
+            } //Displays the wrong answer after the user clicks the answer button
             else if (clickanswer !== storeanswer) {
                 $(".AnsResponse").empty();
                 incorrectAns++;
@@ -227,10 +213,7 @@ $(document).ready(function () {
                 clearTimeout(setTimeoutID);
                 setTimeoutID = setTimeout(getQuestion, 4000);
                
-                // setTimeout(function() {
-                //     $(".responseText").hide()
-                //     $(".AnsResponse").hide()
-                //     }, 4000);
+              
 
             }
 
