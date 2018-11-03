@@ -15,6 +15,7 @@ var timer = 0
 var clock = 31
 var arrayIndex = 0
 var userClicks=false;
+var firstClick=false;
 var init
 var quizQuestions = [
     //#0 in the quizQuestions array
@@ -34,7 +35,7 @@ var quizQuestions = [
 
     },
 
-    //#3 in the quizQuestions array
+    //#2 in the quizQuestions array
     {
         question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
         answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
@@ -67,7 +68,7 @@ function quizInit() {
     $("#startButton").on("click", function () {
         getQuestion();
         clearInterval(setIntervalID)
-        setIntervalID = setInterval(getQuestion, 10000);
+        setIntervalID = setInterval(getQuestion, 11000);
 
     });
 
@@ -80,20 +81,22 @@ function getQuestion() {
     $("#quizHolder").html("<h2>" + quizQuestions[this.currentQuestion].question + "</h2>")
     for (var i = 0; i < quizQuestions[this.currentQuestion].answers.length; i++) {
         $("#quizHolder").append($("<p><button class='answerbutton'>" + quizQuestions[currentQuestion].answers[i] + '</button></p>'));
-console.log([quizQuestions]);
+console.log(currentQuestion);
     }//end for loop inside of getQuestion
     nextQuestion();
 
 }//end getQuestion function  
 
 function nextQuestion() {
-    $(".answerbutton").on("click", function () {
-        userClicks=true;
+    if(userClicks===true){
+    $(".answerbutton").one("click", function () {
+        userClicks=false;
+        firstClick=true;
         $("#quizHolder").empty();
         var clickanswer = $(this).text().toString().trim();
         var storeanswer = quizQuestions[currentQuestion].correct.toString().trim();
         console.log("I am the answer the user clicked " + clickanswer);
-        // alert( clickanswer +" - "+  storeanswer +" "+ clickanswer.localeCompare(storeanswer));
+        alert( clickanswer +" - "+  storeanswer +" "+ clickanswer.localeCompare(storeanswer));
         if (clickanswer === storeanswer) {
             $(".responseText").append("You have answered correctly");
             correctAns++;
@@ -108,7 +111,7 @@ function nextQuestion() {
             setTimeout(function() {
                 $(".responseText").empty()
                 $(".AnsResponse").empty()
-                }, 5000);
+                }, 2000);
 
 
         }
@@ -125,7 +128,7 @@ function nextQuestion() {
     currentQuestion++;
 
 }
-
+}
   
 function tryAgain(){
     $("#test").append($("<p><button class ='tryagain'>" +"try again" + "</buttton> </p>" ));
