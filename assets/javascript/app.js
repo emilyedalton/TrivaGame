@@ -6,9 +6,8 @@ var answers = [];
 var correctAns = 0;
 var incorrectAns = 0;
 var noAnswer = 0;
-var useranswer
-var questionContainer
 var currentQuestion = 0;
+var currentAnswer = -1;
 var setIntervalID;
 var setTimeoutID;
 var timer = 0
@@ -22,6 +21,7 @@ var quizQuestions = [
         question: "Each year, the Chicago river is dyed what color to celebrate St. Patricks day?",
         answers: ["a. orange", "b. green", "c. it dosen't need to be dyed it is beautiul the way it is", "d. purple"],
         correct: "b. green",
+        winGif: "https://media.giphy.com/media/3mknz2HlygEne/giphy.gif",
 
     },
 
@@ -30,8 +30,9 @@ var quizQuestions = [
         question: "What animal cursed the Chicago cubs baseball team until they won the World Series 2016?",
         answers: ["a. fox", "b. pony", "c. squid", "d. goat"],
         correct: "b. green",
+        winGif: "https://media.giphy.com/media/3mknz2HlygEne/giphy.gif",
 
-
+        
     },
 
     //#3 in the quizQuestions array
@@ -39,11 +40,13 @@ var quizQuestions = [
         question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
         answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
         correct: "d. goat",
+        winGif: "https://media.giphy.com/media/l2SpNtHdgOA9s1qNy/giphy.gif",
     },
 {
-    question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
-    answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
-    correct: "d. All of the above",
+        question: "Besides deep-dish pizza, what cuisine is Chicago famous for?",
+        answers: ["a. Hot dogs", "b. Italian beef sandwiches", "c. Brownies", "d. All of the above"],
+        correct: "d. All of the above",
+        winGif: "https://media.giphy.com/media/Y3z0KLoRaZrJm/giphy.gif",
 
     }
 ]
@@ -100,21 +103,29 @@ function nextQuestion() {
         var storeanswer = quizQuestions[currentQuestion].correct.toString().trim();
         console.log("I am the answer the user clicked " + clickanswer);
         alert( clickanswer +" - "+  storeanswer +" "+ clickanswer.localeCompare(storeanswer));
+        
         if (clickanswer === storeanswer) {
             $(".responseText").append("You have answered correctly");
+            $(".AnsResponse").append("<embed src="+quizQuestions[currentQuestion].winGif+ "width = '300px' height = '200px'/>");
+            setTimeout(function() {
+                $(".responseText").empty()
+                $(".AnsResponse").empty()
+                }, 4000);
             correctAns++;
+            checkWins();
             console.log("score is " + correctAns);
             
-            clearTimeout(setTimeoutID);
-            setTimeoutID= setTimeout(getQuestion, 3000); 
+            
+            // clearTimeout(setTimeoutID);
+            // setTimeoutID= setTimeout(getQuestion, 3000); 
         }
         else if(clickanswer !== storeanswer){
-            $(".responseText").append("You have answered incorrectly");
+            $(".responseText").append("DENIED!");
             $(".AnsResponse").append("<embed src=https://media.giphy.com/media/PUeg2vZtk3T7G/giphy.gif width = '300px' height = '200px'/>");
             setTimeout(function() {
                 $(".responseText").empty()
                 $(".AnsResponse").empty()
-                }, 2000);
+                }, 4000);
 
 
         }
@@ -122,7 +133,6 @@ function nextQuestion() {
        else{ 
     noAnswer++;
     console.log("this many unanswered " + noAnswer);
-    tryAgain();
 
 
         }
@@ -134,7 +144,7 @@ function nextQuestion() {
 
   
 function tryAgain(){
-    $("#test").append($("<p><button class ='tryagain'>" +"try again" + "</buttton> </p>" ));
+    $(".quizDone").append($("<p><button class ='tryagain'>" +"try again" + "</buttton> </p>" ));
     $(".tryagain").on("click", function () {
         getQuestion();
         clearInterval(setIntervalID)
@@ -143,16 +153,24 @@ function tryAgain(){
 }
 //end tryAgain
 
+function checkWins(){
+    if (correctAns === 3){
+        clearInterval(setIntervalID);
+        $("#quizHolder").empty();        
+        $(".quizDone").append($("<p><button class ='tryagain'>" +"try again" + "</buttton> </p>" ));
+        $(".tryagain").on("click", function () {
+           
+    });
 
-
+}
+}
 
 
 $(document).ready(function () {
 
 
-
     quizInit();
-
+    
 
 
 });// end document. ready function 
